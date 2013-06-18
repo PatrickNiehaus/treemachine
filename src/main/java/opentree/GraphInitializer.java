@@ -20,7 +20,7 @@ import org.neo4j.graphdb.traversal.TraversalDescription;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.neo4j.kernel.Traversal;
 
-import opentree.DataFormatException;
+import jade.DataFormatException;
 
 public class GraphInitializer extends GraphBase{
 
