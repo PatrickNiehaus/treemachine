@@ -25,10 +25,10 @@ public class DataFormatException extends Exception {
 	}
 	public String toString(){
 		String msg = "Data Format Error: " + this.message;
-		if (msg != null) {
+		if (this.message != null) {
 			msg += "\nFile \"" + this.filename + "\"";
 		}
-		if (lineNumber >= 0) {
+		if (this.lineNumber >= 0) {
 			msg += "\nOn line " + this.lineNumber;
 		}
 		return msg;
