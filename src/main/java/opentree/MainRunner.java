@@ -539,7 +539,7 @@ public class MainRunner {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		GraphInitializer gin = new GraphInitializer(graphname);
 		// make a temp file to be loaded into the tax loader, a hack for now
 		gin.addInitialTaxonomyTableIntoGraph("tax.temp", "");
@@ -571,7 +571,7 @@ public class MainRunner {
 
 			System.out.println("adding tree '" + sourcename + "' to the graph");
 			gi.setTree(jt.get(i));
-			gi.addSetTreeToGraph("life", sourcename,overlap);
+			gi.addSetTreeToGraph("life", sourcename, overlap);
 		}
 		gi.shutdownDB();
 		return 0;
@@ -1141,7 +1141,6 @@ public class MainRunner {
 		return 0;
 	}
 	
-	
 	/// @returns 0 for success, 1 for poorly formed command, -1 for failure
 	public int makePrunedBipartsTestFiles(String [] args) {
 		if (args.length != 4) {
@@ -1344,29 +1343,29 @@ public class MainRunner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			graphDb.shutdownDb();
-			return 0;
+			return -1;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			graphDb.shutdownDb();
-			return 0;
+			return -1;
 		}catch (java.lang.NullPointerException e){
 			e.printStackTrace();
 			graphDb.shutdownDb();
-			return 0;
+			return -1;
 		}
 		try{
 			boolean good = PhylografterConnector.fixNamesFromTrees(jt,graphDb,true);
 			if (good == false){
 				System.out.println("failed to get the names from server fixNamesFromTrees");
 				graphDb.shutdownDb();
-				return 0;
+				return -1;
 			}
 		}catch(IOException ioe){
 			ioe.printStackTrace();
 			System.out.println("failed to get the names from server fixNamesFromTrees");
 			graphDb.shutdownDb();
-			return 0;
+			return -1;
 		}
 		try{
 			for(JadeTree j: jt){
@@ -1416,17 +1415,17 @@ public class MainRunner {
 		} catch(java.lang.NullPointerException e){
 			System.out.println("failed to get study "+file.getName());
 			graphDb.shutdownDb();
-			return 0;
+			return -1;
 		} catch (TaxonNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			graphDb.shutdownDb();
-			return 0;
+			return -1;
 		} catch (TreeIngestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			graphDb.shutdownDb();
-			return 0;
+			return -1;
 		}
 		try {
 			br.close();
@@ -1434,7 +1433,7 @@ public class MainRunner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			graphDb.shutdownDb();
-			return 0;
+			return -1;
 		}
 		graphDb.shutdownDb();
 		return 0;
@@ -1672,7 +1671,6 @@ public class MainRunner {
 		System.out.println("---server functions---");
 		System.out.println("\tgetupdatedlist\n");
 	}
-	
 	
 	/**
 	 * @param args
