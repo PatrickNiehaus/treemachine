@@ -44,6 +44,7 @@ public class RankResolutionMethodInferredPath implements ResolutionMethod {
 		candRelDescendantIdsMap.put(rel, descendantIds);
 
 		// just user feedback for non-terminal nodes
+		
 		if (descendantIds.size() > 1) {
 			String name = null;
 			if (rel.getStartNode().hasProperty("name")) {
@@ -51,6 +52,7 @@ public class RankResolutionMethodInferredPath implements ResolutionMethod {
 			} else {
 				name = rel.getStartNode().toString();
 			}
+		
 			System.out.println(name + " has " + descendantIds.size() + " mrcas");
 		}
 	}
@@ -78,6 +80,7 @@ public class RankResolutionMethodInferredPath implements ResolutionMethod {
 		if (LicaUtil.containsAnyt4jUnsorted(candRelDescendantIdsMap.get(saved), candRelDescendantIdsMap.get(candidate))) {
 			if (candRelDescendantIdsMap.get(candidate).containsAll(candRelDescendantIdsMap.get(saved))) {
 				return 2;
+
 			}
 			return 1;
 		} else {
@@ -117,6 +120,7 @@ public class RankResolutionMethodInferredPath implements ResolutionMethod {
 	    	}
 	    	
 	    	// if no conflict was found, add this rel to the saved set
+	    	
 	    	if (saveRel) {
 		    	System.out.println("\t\t++rel " + candidate.getId() + " passed, it will be added");
 	    		bestRels.add(candidate);
@@ -124,6 +128,7 @@ public class RankResolutionMethodInferredPath implements ResolutionMethod {
 	    	}else{
 	    		System.out.println("\t\t--rel " + candidate.getId() + " failed, it will NOT be added");
 	    	}
+	    	
 	    }
 	    for(Relationship rel: removeSaved){
 	    	System.out.println("removing "+rel);

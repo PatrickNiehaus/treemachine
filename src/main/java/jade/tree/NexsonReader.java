@@ -17,6 +17,7 @@ package jade.tree;
 
 import jade.tree.JadeNode;
 import jade.tree.JadeTree;
+import jade.DataFormatException;
 
 import org.json.simple.JSONValue;
 import org.json.simple.JSONObject;
@@ -55,7 +56,7 @@ public class NexsonReader {
 	}
 
 	/* Read Nexson study from a file, given file name */
-	public static List<JadeTree> readNexson(String filename, Boolean verbose) throws java.io.IOException {
+	public static List<JadeTree> readNexson(String filename, Boolean verbose) throws java.io.IOException, DataFormatException {
 		Reader r = new BufferedReader(new FileReader(filename));
 		List<JadeTree> result = readNexson(r, verbose);
 		r.close();
@@ -63,7 +64,7 @@ public class NexsonReader {
 	}
 
 	/* Read Nexson study from a Reader */
-	public static List<JadeTree> readNexson(Reader r, Boolean verbose) throws java.io.IOException {
+	public static List<JadeTree> readNexson(Reader r, Boolean verbose) throws java.io.IOException, DataFormatException {
 		JSONObject all = (JSONObject)JSONValue.parse(r);
 
 		/*
@@ -123,7 +124,7 @@ public class NexsonReader {
 									   JSONArray edgeList,
 									   List<Object> metaList,
 									   String treeID,
-									   Boolean verbose) {
+									   Boolean verbose) throws DataFormatException {
 		System.out.println(nodeList.size() + " nodes, " + edgeList.size() + " edges");
 		Map<String, JadeNode> nodeMap = new HashMap<String, JadeNode>();
 
@@ -182,6 +183,9 @@ public class NexsonReader {
 			// {"@source": "node830", "@target": "node834", "@length": 0.000241603, "@id": "edge834"}
 			// source is parent, target is child
 			JadeNode source = nodeMap.get(j.get("@source"));  // why isn't this a type error?
+			if( source == null) {
+				throw new DataFormatException("Source node \"" + j.get("@source") + "\" not found." );
+			}
 			JadeNode target = nodeMap.get(j.get("@target"));
 			Double length = (Double)j.get("@length");
 			if (length != null) {

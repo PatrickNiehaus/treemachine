@@ -1212,7 +1212,7 @@ public class MainRunner {
 	 * Use this to load trees from nexson into the graph from a directory
 	 * not from the server
 	 */
-	public int pg_loading(String [] args){
+	public int pg_loading(String [] args) throws DataFormatException {
 		GraphDatabaseAgent graphDb = new GraphDatabaseAgent(args[1]);
 		if (args.length != 3) {
 			graphDb.shutdownDb();
@@ -1314,7 +1314,7 @@ public class MainRunner {
 	 * Use this to load trees from nexson into the graph from a file
 	 * not from the server
 	 */
-	public int pg_loading_ind_studies(String [] args){
+	public int pg_loading_ind_studies(String [] args) throws DataFormatException {
 		boolean test = false;
 		GraphDatabaseAgent graphDb = new GraphDatabaseAgent(args[1]);
 		if (args.length != 3 && args.length != 4) {
@@ -1440,7 +1440,7 @@ public class MainRunner {
 		return 0;
 	}
 	
-	public int pgtesting(String [] args){
+	public int pgtesting(String [] args) throws DataFormatException {
 		GraphDatabaseAgent graphDb = new GraphDatabaseAgent(args[1]);
 		if (args.length != 2) {
 			return 1;

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import jade.DataFormatException;
+
 import opentree.GraphDatabaseAgent;
 import opentree.GraphImporter;
 import opentree.PhylografterConnector;
@@ -92,7 +94,11 @@ public class PhylografterUpdater extends ServerPlugin{
 			} catch (TreeIngestException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (DataFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace(); 
 			}
+
 		}
 
 		

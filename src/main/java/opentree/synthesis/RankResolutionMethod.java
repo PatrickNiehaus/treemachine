@@ -41,6 +41,7 @@ public class RankResolutionMethod implements ResolutionMethod {
 		candRelDescendantIdsMap.put(rel, descendantIds);
 
 		// just user feedback for non-terminal nodes
+		
 		if (descendantIds.size() > 1) {
 			String name = null;
 			if (rel.getStartNode().hasProperty("name")) {
@@ -50,6 +51,7 @@ public class RankResolutionMethod implements ResolutionMethod {
 			}
 			System.out.println(name + " has " + descendantIds.size() + " mrcas");
 		}
+		
 	}
 	
 	private boolean testForConflict(Relationship rel1, Relationship rel2) {
@@ -98,12 +100,15 @@ public class RankResolutionMethod implements ResolutionMethod {
 	    	}
 	    	
 	    	// if no conflict was found, add this rel to the saved set
+	    	
 	    	if (saveRel) {
 		    	System.out.println("\t\t++rel " + candidate.getId() + " passed, it will be added");
 	    		bestRels.add(candidate);
 	    	}else{
 	    		System.out.println("\t\t--rel " + candidate.getId() + " failed, it will NOT be added");
 	    	}
+
+	    	
 	    }
 
 		return bestRels;

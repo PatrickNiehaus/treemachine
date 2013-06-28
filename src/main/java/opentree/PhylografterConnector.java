@@ -25,6 +25,8 @@ import javax.ws.rs.core.MediaType;
 
 import opentree.RelTypes;
 
+import jade.DataFormatException;
+
 import org.json.simple.JSONValue;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -109,7 +111,7 @@ public class PhylografterConnector {
 	 *            that is being requested
 	 * @return a List<JadeTree> of the trees processed
 	 */
-	public static List<JadeTree> fetchTreesFromStudy(Long studyid) {
+	public static List<JadeTree> fetchTreesFromStudy(Long studyid) throws DataFormatException {
 		String urlbase = "http://www.reelab.net/phylografter/study/export_NexSON.json/"
 				+ String.valueOf(studyid);
 		System.out.println("Looking up study: " + urlbase);
@@ -145,7 +147,7 @@ public class PhylografterConnector {
 	 *            that is being requested
 	 * @return a List<JadeTree> of the trees processed
 	 */
-	public static List<JadeTree> fetchGzippedTreesFromStudy(Long studyid) {
+	public static List<JadeTree> fetchGzippedTreesFromStudy(Long studyid) throws DataFormatException {
 		String urlbase = "http://www.reelab.net/phylografter/study/export_gzipNexSON.json/"
 				+ String.valueOf(studyid);
 		System.out.println("Looking up study: " + urlbase);
