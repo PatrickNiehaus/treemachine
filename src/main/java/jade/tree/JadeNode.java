@@ -155,14 +155,21 @@ public class JadeNode {
 	 *			don't handle any name quoting)
 	 */
 	public static String escapeNewickName(String name) {
-		if (name.matches(".*[- ()\\[\\]':;,\"].*")) {
-			String [] ns = name.split("'");
-			if (ns.length == 1) {
-				return "'" + name + "'";
+		if (name.matches(".*[- \\t\\n()\\[\\]':;,\"].*")) { //including space
+			if (name.matches(".*[-\\t\\n()\\[\\]':;,\"].*")) { // newick token breaker pattern with no space.
+				// must be single quoted
+				String [] ns = name.split("'");
+				if (ns.length == 1) {
+					return "'" + name + "'";
+				}
+				return "'" + StringUtils.join(ns, "''") + "'";
+			} else {
+				// most users seem to prefer the A_b rather than 'A b' representation
+				//  so we use this if ' ' is the only token-breaking character
+				return name.replaceAll(" ", "_");
 			}
-			return "'" + StringUtils.join(ns, "''") + "'";
 		}
-		return name;
+		return name; // no escaping necessary
 	}
 	/**
 	 * @param bl should be true to include branch lengths
