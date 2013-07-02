@@ -1052,7 +1052,6 @@ public class GraphExplorer extends GraphBase {
             // get all external descendants of this taxon, remember if they're in the tree or not
             for (long cid : (long[]) taxNode.getProperty("mrca")) {
             	Node childNode = graphDb.getNodeById(cid);
-//                String childName = GeneralUtils.cleanName((String) childNode.getProperty("name"));
 
                 // `knownIdsInTree` should already have been started during synthesis
                 if (knownIdsInTree.contains(cid)) {
@@ -1222,8 +1221,10 @@ public class GraphExplorer extends GraphBase {
 //    	}
         
         if (curGraphNode.hasProperty("name")) {
-            curNode.setName(GeneralUtils.cleanName(String.valueOf(curGraphNode.getProperty("name"))));
-//            curNode.setName(GeneralUtils.cleanName(curNode.getName()));
+            //@MTH avoiding name cleaning
+            //curNode.setName(GeneralUtils.cleanName(String.valueOf(curGraphNode.getProperty("name"))));
+            //@MTH avoiding name cleaning
+            curNode.setName(String.valueOf(curGraphNode.getProperty("name"))); 
         }
 
         // add the current node to the tree we're building
@@ -1308,7 +1309,8 @@ public class GraphExplorer extends GraphBase {
 
         if (curGraphNode.hasProperty("name")) {
             newNode.setName((String) curGraphNode.getProperty("name"));
-            newNode.setName(GeneralUtils.cleanName(newNode.getName()));
+            //@MTH avoiding name cleaning
+            // newNode.setName(GeneralUtils.cleanName(newNode.getName()));
         }
 
         if (parentJadeNode == null) {
@@ -1567,7 +1569,8 @@ public class GraphExplorer extends GraphBase {
 
         if (curGraphNode.hasProperty("name")) {
             newJadeNode.setName((String) curGraphNode.getProperty("name"));
-            newJadeNode.setName(GeneralUtils.cleanName(newJadeNode.getName()));
+            //@MTH avoiding name cleaning
+            //newJadeNode.setName(GeneralUtils.cleanName(newJadeNode.getName()));
         }
 
         if (newJadeNode.getName().length() == 0) {
@@ -1767,8 +1770,10 @@ public class GraphExplorer extends GraphBase {
             
             // get all external descendants of this taxon, remember if they're in the tree or not
             for (long cid : (long[]) taxNode.getProperty("mrca")) {
-                String name = GeneralUtils.cleanName((String) graphDb.getNodeById(cid).getProperty("name"));
-
+                //@MTH avoiding name cleaning
+                //String name = GeneralUtils.cleanName((String) graphDb.getNodeById(cid).getProperty("name"));
+                String name = (String) graphDb.getNodeById(cid).getProperty("name");
+                
 
                 // `knownIdsInTree` should already have been started during original construction of `tree`
                 if (knownIdsInTree.contains(cid)) {
