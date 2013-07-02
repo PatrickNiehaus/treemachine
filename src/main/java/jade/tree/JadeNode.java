@@ -155,12 +155,12 @@ public class JadeNode {
 	 *			don't handle any name quoting)
 	 */
 	public static String escapeNewickName(String name) {
-		if (name.matches("[ ()\\[\\]\'-:;,\"-]")) {
-			String [] ns = name.split("\'");
+		if (name.matches(".*[- ()\\[\\]':;,\"].*")) {
+			String [] ns = name.split("'");
 			if (ns.length == 1) {
-				return "\'" + name + "\'";
+				return "'" + name + "'";
 			}
-			return "\'" + StringUtils.join(ns, "\'\'") + "\'";
+			return "'" + StringUtils.join(ns, "''") + "'";
 		}
 		return name;
 	}
