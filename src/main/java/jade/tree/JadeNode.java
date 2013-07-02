@@ -1,6 +1,7 @@
 package jade.tree;
 
 import java.util.*;
+import org.apache.commons.lang3.StringUtils;
 import opentree.JSONExporter;
 
 public class JadeNode {
@@ -145,6 +146,25 @@ public class JadeNode {
 	public String getName() {return this.name;}
 	
 	/**
+	 * From http://evolution.genetics.washington.edu/phylip/newick_doc.html
+	 * "Unquoted labels may not contain blanks, parentheses, square brackets, single_quotes, colons, semicolons, or commas." 
+	 * MTH added "  and - to this list (because:
+	 *		1. they are common in trees,
+	 *		2. failure to comment them will trip up some non-compliant parsers, and
+	 *		3. there is not much downside to quoting them (2 extra chars only, and loss of support for very broken tools that
+	 *			don't handle any name quoting)
+	 */
+	public static String escapeNewickName(String name) {
+		if (name.matches("[ ()\\[\\]\'-:;,\"-]")) {
+			String [] ns = name.split("\'");
+			if (ns.length == 1) {
+				return "\'" + name + "\'";
+			}
+			return "\'" + StringUtils.join(ns, "\'\'") + "\'";
+		}
+		return name;
+	}
+	/**
 	 * @param bl should be true to include branch lengths
 	 * @return string with newick representation of the subtree rooted at this node
 	 */
@@ -169,7 +189,7 @@ public class JadeNode {
 			}
 		}
 		if (this.name != null) {
-			ret.append(this.name);
+			ret.append(escapeNewickName(this.name));
 		}
 		return ret.toString();
 	}
